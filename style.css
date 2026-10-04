@@ -1,0 +1,1419 @@
+:root {
+  --font-main: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Comfortaa', var(--font-main);
+
+  /* Primary Palette */
+  --color-primary: #e65100;
+  --color-primary-light: #fff3e0;
+  --color-primary-dark: #bf360c;
+  --color-accent: #6a1b9a;
+  
+  --bg-page: #f8fafc;
+  --bg-card: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-card: #e2e8f0;
+  
+  /* Success & Accent */
+  --color-success: #15803d;
+  --color-success-bg: #dcfce7;
+  --color-teacher-badge: #0284c7;
+
+  /* Theme colors for circle tasks */
+  --c-purple-fill: #d1c4e9;
+  --c-purple-border: #7e57c2;
+  --c-purple-glow: rgba(126, 87, 194, 0.2);
+
+  --c-green-fill: #c8e6c9;
+  --c-green-border: #43a047;
+  --c-green-glow: rgba(67, 160, 71, 0.2);
+
+  --c-orange-fill: #ffe0b2;
+  --c-orange-border: #fb8c00;
+  --c-orange-glow: rgba(251, 140, 0, 0.2);
+
+  --c-blue-fill: #c5cae9;
+  --c-blue-border: #3949ab;
+  --c-blue-glow: rgba(57, 73, 171, 0.2);
+
+  --c-pink-fill: #f8bbd0;
+  --c-pink-border: #d81b60;
+
+  --c-teal-fill: #b2dfdb;
+  --c-teal-border: #00897b;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-md: 0 6px 16px rgba(0,0,0,0.06);
+  --shadow-lg: 0 12px 28px rgba(0,0,0,0.09);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.5;
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+
+/* ==========================================================================
+   Header & Controls
+   ========================================================================== */
+.app-header {
+  background: #ffffff;
+  border-bottom: 2px solid #e2e8f0;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.header-main-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.header-sub-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.header-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-icon {
+  font-size: 32px;
+  background: #fff7ed;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  border: 2px solid #ffedd5;
+}
+
+.header-title {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  color: #ea580c;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.header-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Teacher Key Master Switch */
+.teacher-key-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ecfdf5;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid #a7f3d0;
+  font-size: 13px;
+  font-weight: 800;
+  color: #065f46;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.teacher-key-switch:hover {
+  background: #d1fae5;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 22px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #cbd5e1;
+  transition: 0.25s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.25s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+input:checked + .slider {
+  background-color: #059669;
+}
+
+input:checked + .slider:before {
+  transform: translateX(16px);
+}
+
+/* Teacher Action Bar */
+.teacher-action-bar {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 10px 24px;
+}
+
+.bar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.preset-sets-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sets-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #334155;
+}
+
+.set-pills {
+  display: flex;
+  gap: 6px;
+  background: #f1f5f9;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  border: 1px solid #cbd5e1;
+}
+
+.btn-set {
+  background: transparent;
+  border: none;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-main);
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.btn-set:hover {
+  color: #0f172a;
+}
+
+.btn-set.active {
+  background: #ffffff;
+  color: #ea580c;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  font-weight: 800;
+}
+
+.variant-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.variant-tag {
+  background: #f1f5f9;
+  color: #334155;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 800;
+  border: 1px solid #cbd5e1;
+}
+
+.tasks-count-badge {
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.action-buttons-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  user-select: none;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: #ea580c;
+  color: white;
+}
+.btn-primary:hover {
+  background: #c2410c;
+}
+
+.btn-secondary {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+.btn-secondary:hover {
+  background: #e2e8f0;
+}
+
+.btn-accent {
+  background: #7c3aed;
+  color: white;
+}
+.btn-accent:hover {
+  background: #6d28d9;
+}
+
+.btn-print-student {
+  background: #2563eb;
+  color: white;
+}
+.btn-print-student:hover {
+  background: #1d4ed8;
+}
+
+.btn-print-teacher {
+  background: #059669;
+  color: white;
+}
+.btn-print-teacher:hover {
+  background: #047857;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: var(--radius-sm);
+}
+
+.btn-icon {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  cursor: pointer;
+  font-size: 17px;
+  transition: all 0.2s;
+}
+.btn-icon:hover {
+  background: #f1f5f9;
+}
+
+/* ==========================================================================
+   Instruction & Content
+   ========================================================================== */
+.main-content {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+.instruction-banner {
+  background: #ffffff;
+  border: 2px solid #fed7aa;
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.banner-badge {
+  background: #ea580c;
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.banner-text {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.banner-text strong {
+  font-size: 17px;
+  color: #1e293b;
+  margin-bottom: 2px;
+}
+
+.banner-text span {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.teacher-quick-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  max-width: 300px;
+}
+
+/* ==========================================================================
+   Task Cards & Layout
+   ========================================================================== */
+.tasks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.task-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 22px 26px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.task-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: var(--shadow-md);
+}
+
+/* Sample Card (Образец) */
+.task-card.sample-card {
+  background: #fdf2f8;
+  border: 2px dashed #f472b6;
+}
+
+.sample-badge {
+  position: absolute;
+  top: -12px;
+  left: 24px;
+  background: #f472b6;
+  color: white;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 3px 12px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Task Inner Body */
+.task-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.task-statement {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 280px;
+}
+
+.task-label {
+  font-size: 22px;
+  font-weight: 800;
+  color: #475569;
+  width: 26px;
+}
+
+/* Fraction formatting */
+.fraction-box {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  font-size: 24px;
+  font-weight: 800;
+  color: #1e293b;
+  line-height: 1.05;
+  padding: 0 4px;
+}
+
+.fraction-box .numerator {
+  border-bottom: 2.5px solid #1e293b;
+  padding-bottom: 2px;
+  width: 100%;
+  text-align: center;
+}
+
+.fraction-box .denominator {
+  padding-top: 2px;
+  text-align: center;
+  width: 100%;
+}
+
+.task-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Answer Value or Blank Line */
+.task-answer-display {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  height: 42px;
+  padding: 0 10px;
+  border-radius: var(--radius-md);
+  font-size: 24px;
+  font-weight: 800;
+  transition: all 0.2s ease;
+}
+
+.task-answer-display.revealed {
+  background: #dcfce7;
+  color: #15803d;
+  border: 2px solid #86efac;
+}
+
+.task-answer-display.hidden-answer {
+  background: #f1f5f9;
+  color: #94a3b8;
+  border: 2px dashed #cbd5e1;
+}
+
+/* ==========================================================================
+   Visual Circles & Group Columns
+   ========================================================================== */
+.task-visualization {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.8);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(0,0,0,0.06);
+  user-select: none;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* A single column represents 1 group */
+.circle-column-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 6px 6px;
+  border-radius: 999px;
+  border: 2.5px dashed transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.circle-column-group:hover {
+  background: rgba(0,0,0,0.04);
+  transform: translateY(-2px);
+}
+
+/* Active / Selected Column (The capsule pill from textbook!) */
+.circle-column-group.selected {
+  border-style: solid;
+  transform: translateY(-2px);
+}
+
+/* Individual Circle item */
+.circle-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+/* Color palettes */
+.color-purple .circle-dot { background-color: var(--c-purple-fill); border-color: var(--c-purple-border); }
+.color-purple.circle-column-group.selected {
+  border-color: var(--c-purple-border);
+  background-color: rgba(126, 87, 194, 0.14);
+}
+
+.color-green .circle-dot { background-color: var(--c-green-fill); border-color: var(--c-green-border); }
+.color-green.circle-column-group.selected {
+  border-color: var(--c-green-border);
+  background-color: rgba(67, 160, 71, 0.14);
+}
+
+.color-orange .circle-dot { background-color: var(--c-orange-fill); border-color: var(--c-orange-border); }
+.color-orange.circle-column-group.selected {
+  border-color: var(--c-orange-border);
+  background-color: rgba(251, 140, 0, 0.16);
+}
+
+.color-blue .circle-dot { background-color: var(--c-blue-fill); border-color: var(--c-blue-border); }
+.color-blue.circle-column-group.selected {
+  border-color: var(--c-blue-border);
+  background-color: rgba(57, 73, 171, 0.14);
+}
+
+.color-pink .circle-dot { background-color: var(--c-pink-fill); border-color: var(--c-pink-border); }
+.color-pink.circle-column-group.selected {
+  border-color: var(--c-pink-border);
+  background-color: rgba(216, 27, 96, 0.14);
+}
+
+.color-teal .circle-dot { background-color: var(--c-teal-fill); border-color: var(--c-teal-border); }
+.color-teal.circle-column-group.selected {
+  border-color: var(--c-teal-border);
+  background-color: rgba(0, 137, 123, 0.14);
+}
+
+/* ==========================================================================
+   Teacher Card Controls & Footer
+   ========================================================================== */
+.task-footer {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.group-status-pill {
+  font-size: 13px;
+  font-weight: 700;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.group-status-pill .pill-number {
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: #1e293b;
+}
+
+.teacher-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-toggle-answer {
+  background: #f8fafc;
+  color: #0284c7;
+  border: 1.5px solid #bae6fd;
+}
+.btn-toggle-answer:hover {
+  background: #f0f9ff;
+  border-color: #7dd3fc;
+}
+
+.btn-toggle-answer.active {
+  background: #dcfce7;
+  color: #15803d;
+  border-color: #86efac;
+}
+
+.btn-edit-item {
+  background: #f8fafc;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
+.btn-edit-item:hover {
+  background: #f1f5f9;
+}
+
+.btn-delete-item {
+  background: #f8fafc;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+.btn-delete-item:hover {
+  background: #fef2f2;
+}
+
+/* Step-by-step Solution Box */
+.solution-breakdown {
+  margin-top: 12px;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  font-size: 14px;
+  animation: fadeIn 0.25s ease;
+}
+
+.solution-breakdown h4 {
+  font-size: 14px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.solution-formula {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-family: monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.solution-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  color: #475569;
+}
+
+.step-num {
+  width: 20px;
+  height: 20px;
+  background: #e2e8f0;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #334155;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Modal (Task Builder)
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 520px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: scaleUp 0.2s ease-out;
+}
+
+.modal-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-header h2 {
+  font-size: 19px;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 26px;
+  color: #94a3b8;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-desc {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.form-group input[type="number"] {
+  padding: 8px 12px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 700;
+  outline: none;
+}
+.form-group input[type="number"]:focus {
+  border-color: #ea580c;
+}
+
+.form-preview-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 12px;
+}
+
+.preview-label {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.preview-equation {
+  font-size: 17px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-top: 4px;
+}
+
+.preview-details {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.color-picker-palette {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+.color-radio {
+  cursor: pointer;
+}
+.color-radio input {
+  display: none;
+}
+.color-swatch {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  transition: all 0.2s;
+}
+.color-radio input:checked + .color-swatch {
+  border-color: #1e293b;
+  transform: scale(1.15);
+}
+.swatch-purple { background: #b39ddb; }
+.swatch-green { background: #a5d6a7; }
+.swatch-orange { background: #ffcc80; }
+.swatch-blue { background: #9fa8da; }
+.swatch-pink { background: #f8bbd0; }
+.swatch-teal { background: #80cbc4; }
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* ==========================================================================
+   Printable Layout (Worksheet for Class or Keys for Teacher)
+   ========================================================================== */
+.print-header {
+  display: none;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    padding: 0 !important;
+    font-size: 12pt;
+  }
+
+  .main-content {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .print-header {
+    display: block !important;
+    border-bottom: 2px solid #333;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+
+  .print-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .print-title-row h2 {
+    font-size: 18pt;
+    font-weight: 800;
+  }
+
+  .print-variant {
+    font-size: 13pt;
+    font-weight: 700;
+    border: 1.5px solid #333;
+    padding: 2px 10px;
+    border-radius: 4px;
+  }
+
+  .student-fields-row {
+    display: flex;
+    gap: 20px;
+    font-size: 11pt;
+    font-weight: 600;
+  }
+
+  .student-field {
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .student-field-small {
+    width: 140px;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .field-line {
+    border-bottom: 1.5px solid #333;
+    flex-grow: 1;
+    height: 18px;
+    margin-left: 6px;
+  }
+
+  .instruction-banner {
+    border: 1.5px solid #333;
+    box-shadow: none;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+  }
+
+  .banner-badge {
+    background: #333 !important;
+  }
+
+  .task-card {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    margin-bottom: 16px !important;
+    padding: 14px 18px !important;
+  }
+
+  .task-footer,
+  .teacher-item-actions {
+    display: none !important;
+  }
+
+  .circle-dot {
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+
+  .circle-column-group.selected {
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ==========================================================================
+   Section Separation & Task 2 Blue Grid Table
+   ========================================================================== */
+.worksheet-section {
+  margin-bottom: 36px;
+}
+
+.worksheet-section:last-child {
+  margin-bottom: 0;
+}
+
+/* Task 2 Grid Wrapper (Matching textbook blue card) */
+.task2-grid-wrapper {
+  background: #e0f2fe; /* Light sky blue */
+  border: 2.5px solid #0284c7; /* Vibrant cyan/blue border */
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.task2-cell {
+  padding: 22px 24px;
+  border-right: 2px solid #0284c7;
+  border-bottom: 2px solid #0284c7;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.25);
+  transition: all 0.2s ease;
+}
+
+.task2-cell:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+/* Remove right border on 2nd column */
+.task2-cell:nth-child(2n) {
+  border-right: none;
+}
+
+/* Remove bottom border on last 2 cells */
+.task2-cell:nth-child(n+3) {
+  border-bottom: none;
+}
+
+.task2-expression-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.task2-label {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0369a1;
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.task2-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.task2-cell-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(2, 132, 199, 0.3);
+  flex-wrap: wrap;
+}
+
+.task2-calc-hint {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0369a1;
+  background: #ffffff;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid #bae6fd;
+}
+
+/* Print optimizations for Section 1 and Section 2 */
+@media print {
+  .worksheet-section {
+    margin-bottom: 22px;
+    page-break-inside: avoid;
+  }
+
+  .task2-grid-wrapper {
+    border: 2px solid #0284c7 !important;
+    background: #e0f2fe !important;
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+
+  .task2-cell {
+    border-color: #0284c7 !important;
+    padding: 14px 16px !important;
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+
+  .task2-cell-footer {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   Sections 3 & 4: Word Problems (Текстовые задачи к множеству)
+   ========================================================================== */
+.task-word-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.task-word-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: var(--shadow-md);
+}
+
+.word-task-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.word-task-badge {
+  background: #ea580c;
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(234, 88, 12, 0.3);
+}
+
+.word-task-text {
+  font-size: 19px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.word-task-text .fraction-box {
+  font-size: 20px;
+  margin: 0 2px;
+}
+
+/* Tape Diagram (Наглядная полоска долей множества) */
+.tape-diagram-wrap {
+  margin: 18px 0 10px 54px;
+  padding: 14px 18px;
+  background: #f8fafc;
+  border-radius: var(--radius-md);
+  border: 1px solid #e2e8f0;
+}
+
+.tape-diagram-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tape-bar {
+  display: flex;
+  height: 38px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #334155;
+  background: #ffffff;
+}
+
+.tape-segment {
+  flex: 1;
+  border-right: 1.5px dashed #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: #334155;
+  transition: all 0.2s ease;
+}
+
+.tape-segment:last-child {
+  border-right: none;
+}
+
+.tape-segment.known-part {
+  background: #ffedd5;
+  color: #c2410c;
+  border-right-style: solid;
+}
+
+.tape-segment.target-part {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.tape-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  flex-wrap: wrap;
+}
+
+.tape-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid #94a3b8;
+}
+
+/* Word Task Footer & Actions */
+.word-task-footer {
+  margin-top: 16px;
+  margin-left: 54px;
+  padding-top: 12px;
+  border-top: 1px dashed #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.word-task-answer-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.student-write-lines {
+  display: none;
+}
+
+/* Print mode for word tasks */
+@media print {
+  .task-word-card {
+    border: 1.5px solid #333 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    margin-bottom: 20px !important;
+    padding: 16px 20px !important;
+  }
+
+  .tape-diagram-wrap {
+    background: white !important;
+    border: 1px solid #666 !important;
+    margin-left: 0 !important;
+  }
+
+  .tape-bar {
+    border-color: #000 !important;
+  }
+
+  .tape-segment.known-part {
+    background: #e5e5e5 !important;
+    print-color-adjust: exact !important;
+  }
+
+  .tape-segment.target-part {
+    background: #f5f5f5 !important;
+    print-color-adjust: exact !important;
+  }
+
+  .word-task-footer {
+    display: none !important;
+  }
+
+  .student-write-lines {
+    display: block !important;
+    margin-top: 16px;
+    font-size: 11pt;
+  }
+
+  .student-write-line {
+    border-bottom: 1px solid #333;
+    height: 24px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-end;
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 768px) {
+  .task2-grid-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .task2-cell {
+    border-right: none !important;
+    border-bottom: 2px solid #0284c7 !important;
+  }
+  .task2-cell:last-child {
+    border-bottom: none !important;
+  }
+  .tape-diagram-wrap,
+  .word-task-footer {
+    margin-left: 0;
+  }
+}

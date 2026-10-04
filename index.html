@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Генератор и доска заданий для учителя — «Часть множества»</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header / Teacher Control Bar -->
+  <header class="app-header no-print">
+    <div class="header-container">
+      <div class="header-main-row">
+        <div class="header-title-group">
+          <div class="header-icon">
+            <span>👩‍🏫</span>
+          </div>
+          <div>
+            <h1 class="header-title">Кабинет учителя: «Часть множества»</h1>
+            <p class="header-subtitle">Конструктор карточек, интерактивная доска для урока и печать заданий</p>
+          </div>
+        </div>
+
+        <div class="header-controls">
+          <!-- Master Teacher Key Switch -->
+          <div class="teacher-key-switch" id="masterAnswerToggleWrap">
+            <label class="toggle-switch">
+              <input type="checkbox" id="teacherAnswersToggle">
+              <span class="slider"></span>
+            </label>
+            <span class="toggle-label" id="toggleLabelText">🔑 Ответы учителя (показать всё)</span>
+          </div>
+
+          <!-- Fullscreen projector mode -->
+          <button id="fullscreenBtn" class="btn btn-secondary" title="Режим проектора / интерактивной доски на весь экран">
+            <span>📺</span> На весь экран
+          </button>
+
+          <!-- Audio mute toggle -->
+          <button id="soundToggleBtn" class="btn-icon" title="Звук клика у доски">
+            <span id="soundIcon">🔊</span>
+          </button>
+
+          <!-- New tasks generator -->
+          <button id="generateVariantBtn" class="btn btn-primary" title="Сгенерировать новый набор заданий">
+            <span>🎲</span> Новый вариант
+          </button>
+
+          <!-- Custom task constructor -->
+          <button id="openConstructorBtn" class="btn btn-accent" title="Добавить своё задание">
+            <span>➕</span> Добавить задание
+          </button>
+        </div>
+      </div>
+
+      <!-- Secondary Row: Preset Sets, Variant & Print Actions -->
+      <div class="header-sub-row">
+        <div class="preset-sets-group">
+          <span class="sets-label">📚 Готовые наборы (не из книги):</span>
+          <div class="set-pills" id="setPillsContainer">
+            <button class="btn-set active" data-set-index="0">Набор №1</button>
+            <button class="btn-set" data-set-index="1">Набор №2</button>
+            <button class="btn-set" data-set-index="2">Набор №3</button>
+          </div>
+          <span class="tasks-count-badge" id="tasksCountBadge">3 задания для класса</span>
+        </div>
+
+        <div class="action-buttons-group">
+          <button id="printStudentBtn" class="btn btn-print-student" title="Распечатать карточки для учеников (без ответов)">
+            <span>🖨️</span> Распечатать для учеников (без ответов)
+          </button>
+          <button id="printTeacherBtn" class="btn btn-print-teacher" title="Распечатать с ответами и решениями (для учителя)">
+            <span>📑</span> Распечатать с ответами (ключи)
+          </button>
+          <button id="resetBoardBtn" class="btn btn-secondary" title="Очистить выделения у доски">
+            <span>🧹</span> Сбросить выделения у доски
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Printable Header (Visible only on print or when configured) -->
+  <div class="print-header">
+    <div class="print-title-row">
+      <h2>Рабочий лист: «Часть множества»</h2>
+      <span class="print-variant" id="printVariantLabel">Вариант 1</span>
+    </div>
+    <div class="student-fields-row">
+      <div class="student-field"><span>Ученик (ФИО):</span> <span class="field-line"></span></div>
+      <div class="student-field-small"><span>Класс:</span> <span class="field-line"></span></div>
+      <div class="student-field-small"><span>Дата:</span> <span class="field-line"></span></div>
+    </div>
+  </div>
+
+  <!-- Main Content: Worksheets / Interactive Board -->
+  <main class="main-content">
+    <!-- SECTION 1: «Часть множества» (с кружочками) -->
+    <section class="worksheet-section" id="section1">
+      <div class="instruction-banner">
+        <div class="banner-badge">1</div>
+        <div class="banner-text">
+          <strong>Для нахождения ответа выделите группы кружочков.</strong>
+          <span>Нажимайте на столбики с кружками прямо на экране или доске, чтобы выделить нужное количество долей.</span>
+        </div>
+        <div class="teacher-quick-hint no-print">
+          <span class="hint-icon">💡</span>
+          <span>Задание 1: наглядные группы и доли множества.</span>
+        </div>
+      </div>
+
+      <!-- Task 1 Cards Container -->
+      <div id="tasksContainer1" class="tasks-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- SECTION 2: «Найдите значения выражений» (голубая таблица 2x2) -->
+    <section class="worksheet-section" id="section2">
+      <div class="instruction-banner">
+        <div class="banner-badge">2</div>
+        <div class="banner-text">
+          <strong>Найдите значения выражений.</strong>
+          <span>Вычислите долю от числа (устно или в тетради). Для проверки нажмите на ячейку или кнопку ответа.</span>
+        </div>
+        <div class="teacher-quick-hint no-print">
+          <span class="hint-icon">💡</span>
+          <span>Задание 2: вычисления (от простых до трёхзначных чисел).</span>
+        </div>
+      </div>
+
+      <!-- Task 2 Grid Box (Blue 2x2 Table like in textbook) -->
+      <div id="tasksContainer2" class="task2-grid-wrapper">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- SECTION 3: Текстовая задача на нахождение оставшейся части множества -->
+    <section class="worksheet-section" id="section3">
+      <div class="task-word-card" id="taskCard3">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- SECTION 4: Текстовая задача на нахождение целого числа по его дроби -->
+    <section class="worksheet-section" id="section4">
+      <div class="task-word-card" id="taskCard4">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal: Task Builder / Editor -->
+  <div id="constructorModal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="modalTitle">🛠️ Добавить задание</h2>
+        <button class="modal-close-btn" id="closeConstructorBtn">&times;</button>
+      </div>
+      <form id="customTaskForm" class="modal-body">
+        <p class="modal-desc">Задайте дробь и размер множества. Кружочки автоматически выстроятся в равные столбики для наглядного объяснения темы.</p>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="taskNum">Числитель (сколько групп взять):</label>
+            <input type="number" id="taskNum" min="1" max="15" value="3" required>
+          </div>
+          <div class="form-group">
+            <label for="taskDen">Знаменатель (всего групп-столбиков):</label>
+            <input type="number" id="taskDen" min="2" max="15" value="5" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="taskItemsPerGroup">Кружочков в каждом столбике (в одной доле):</label>
+          <input type="number" id="taskItemsPerGroup" min="1" max="8" value="3" required>
+        </div>
+
+        <div class="form-preview-box">
+          <span class="preview-label">Предпросмотр задания:</span>
+          <div class="preview-equation" id="previewEquation">
+            <span class="frac"><sup>3</sup>&frasl;<sub>5</sub></span> частей от числа <strong>15</strong> = <strong>9</strong>
+          </div>
+          <div class="preview-details" id="previewDetails">
+            (5 столбиков по 3 кружка, выделяем 3 столбика = 9 кружков)
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Цвет кружочков в задании:</label>
+          <div class="color-picker-palette">
+            <label class="color-radio">
+              <input type="radio" name="circleColor" value="green" checked>
+              <span class="color-swatch swatch-green"></span>
+            </label>
+            <label class="color-radio">
+              <input type="radio" name="circleColor" value="orange">
+              <span class="color-swatch swatch-orange"></span>
+            </label>
+            <label class="color-radio">
+              <input type="radio" name="circleColor" value="blue">
+              <span class="color-swatch swatch-blue"></span>
+            </label>
+            <label class="color-radio">
+              <input type="radio" name="circleColor" value="purple">
+              <span class="color-swatch swatch-purple"></span>
+            </label>
+            <label class="color-radio">
+              <input type="radio" name="circleColor" value="pink">
+              <span class="color-swatch swatch-pink"></span>
+            </label>
+            <label class="color-radio">
+              <input type="radio" name="circleColor" value="teal">
+              <span class="color-swatch swatch-teal"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="cancelConstructorBtn">Отмена</button>
+          <button type="submit" class="btn btn-primary" id="saveTaskBtn">Сохранить задание</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
